@@ -2,20 +2,29 @@
 import { ref } from "vue";
 
 const addNewOne = ref("");
-const toDoList = ref([1,2,3]);
+const toDoList = ref(['預設']);
 
-// 輸入內容
-// 按下enter
-// 顯示內容在第二欄
 function add() {
-  // alert(addNewOne.value);
-  toDoList.value.push(addNewOne.value) // 注意.value的寫法
-  alert(addNewOne);
+  // 輸入內容
+  // 按下enter
+  // 顯示內容在第二欄
+  toDoList.value.push(addNewOne.value); // 注意.value的寫法
+
+
+  // 不可輸入空值
+  if (addNewOne.trim() === "") {
+    // 如果为空，显示警告对话框
+    alert("請輸入內容");
+    return false; // 阻止表单提交
+  }
 }
 
-// function delete() {
-//   toDoList.value = []
-// }
+// 刪除索引位置資料, 一筆
+function deleteToDoList(index) {
+  toDoList.value.splice(index, 1)
+}
+
+
 </script>
 
 <template>
@@ -25,14 +34,20 @@ function add() {
       class="inputBox"
       v-model="addNewOne"
       @keyup.enter="add()"
+      placeholder="預計完成的事項..."
     />
-    <img src="@/assets/btn-add.svg" alt="btn-add" class="btn-add"/>
+    <img
+      src="@/assets/btn-add.svg"
+      alt="btn-add"
+      class="btn-add"
+      disabled="addNewOne === '' ? true:false"
+    />
   </div>
 
   <div v-if="toDoList.length !== 0">
-    <div class="outPut" v-for="todo in toDoList" :key="todo">
-      {{ todo }}
-      <img src="@/assets/btn-delete.svg" alt="btn-delete" class="btn-delete" />
+    <div class="outPut" v-for="(todo, index) in toDoList" :key="todo">
+        {{ todo }}
+      <img src="@/assets/btn-delete.svg" alt="btn-delete" class="btn-delete" @click="deleteToDoList(index)"/>
     </div>
   </div>
 </template>
@@ -41,13 +56,15 @@ function add() {
 .input,
 .outPut {
   display: flex;
-  position: absolute;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: auto;
+  margin-right: auto;
   width: 204px;
   height: 30px;
-  position: relative;
-  top: 130px;
-  left: 50px;
   border: #f7c258 1px solid;
+  font-size: 16px;
+  padding-left: 2px;
 
   .inputBox {
     border: none;
@@ -56,13 +73,13 @@ function add() {
 }
 
 .outPut {
-  border: red 1px solid;
-  margin-top: 10px;
+  border: #acdbde 1px solid;
+  margin-top: 1rem;
+  background-color: #c6e4e6;
 }
 
-.btn-add, .btn-delete {
-  position: relative;
-  top: 0px;
+.btn-add,
+.btn-delete {
   margin-left: auto;
   margin-top: auto;
   margin-bottom: auto;

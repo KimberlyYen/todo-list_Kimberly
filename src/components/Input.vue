@@ -1,16 +1,32 @@
 <script setup>
+import { ref } from 'vue';
+
+const addNewOne = ref('');
+
+function add() {
+  console.log(addNewOne.value);
+}
 </script>
 
 <template>
-  <!-- <input class="input" type="text" id="myInput" placeholder="Title..."/> -->
   <div class="input">
-    <input type="text" class="inputBox">
-    <img src="@/assets/btn-add.svg" alt="btn-add">
+    <input
+      type="text"
+      class="inputBox"
+      v-model="addNewOne"
+      @keyup.enter="add"
+    />
+    <img src="@/assets/btn-add.svg" alt="btn-add" >
+  </div>
+  
+  <div class="outPut">
+    {{ addNewOne }}
   </div>
 </template>
 
 <style lang="scss" scoped>
-.input {
+.input ,
+.outPut{
   display: flex;
   position: absolute;
   width: 204px;
@@ -26,6 +42,11 @@
   }
 }
 
+.outPut {
+  border: red 1px solid;
+  margin-top: 10px;
+}
+
 img{
   position: relative;
   top: 0px;
@@ -33,5 +54,6 @@ img{
   margin-top: auto;
   margin-bottom: auto;
   margin-right: 3px;
+  cursor: pointer;
 }
 </style>

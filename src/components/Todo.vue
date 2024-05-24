@@ -7,7 +7,7 @@ import Input from '@/components/Input.vue'
   <div class="container">
     <div class="bg">
         <Input />
-        <img src="../assets/bg-All.svg" alt="background">
+        <!-- <img src="../assets/bg-All.svg" alt="background"> -->
     </div>
   </div>
 </template>

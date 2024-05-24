@@ -1,11 +1,21 @@
 <script setup>
-import { ref } from 'vue';
+import { ref } from "vue";
 
-const addNewOne = ref('');
+const addNewOne = ref("");
+const toDoList = ref([1,2,3]);
 
+// 輸入內容
+// 按下enter
+// 顯示內容在第二欄
 function add() {
-  console.log(addNewOne.value);
+  // alert(addNewOne.value);
+  toDoList.value.push(addNewOne.value) // 注意.value的寫法
+  alert(addNewOne);
 }
+
+// function delete() {
+//   toDoList.value = []
+// }
 </script>
 
 <template>
@@ -14,19 +24,22 @@ function add() {
       type="text"
       class="inputBox"
       v-model="addNewOne"
-      @keyup.enter="add"
+      @keyup.enter="add()"
     />
-    <img src="@/assets/btn-add.svg" alt="btn-add" >
+    <img src="@/assets/btn-add.svg" alt="btn-add" class="btn-add"/>
   </div>
-  
-  <div class="outPut">
-    {{ addNewOne }}
+
+  <div v-if="toDoList.length !== 0">
+    <div class="outPut" v-for="todo in toDoList" :key="todo">
+      {{ todo }}
+      <img src="@/assets/btn-delete.svg" alt="btn-delete" class="btn-delete" />
+    </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
-.input ,
-.outPut{
+.input,
+.outPut {
   display: flex;
   position: absolute;
   width: 204px;
@@ -34,7 +47,7 @@ function add() {
   position: relative;
   top: 130px;
   left: 50px;
-  border: #F7C258 1px solid;
+  border: #f7c258 1px solid;
 
   .inputBox {
     border: none;
@@ -47,7 +60,7 @@ function add() {
   margin-top: 10px;
 }
 
-img{
+.btn-add, .btn-delete {
   position: relative;
   top: 0px;
   margin-left: auto;

@@ -2,31 +2,37 @@
 import { ref, watch } from "vue";
 
 const addNewOne = ref("");
-const toDoList = ref(["預設","1","2","3","4","5","6"]);
-const howMany = ref(toDoList.value.length);
+const toDoList = ref([]);
+const myList = ref([]);
+
+// 从 localStorage 中获取 myList 值并解析为数组
+myList.value = JSON.parse(localStorage.getItem("myList")) || [];
+const howMany = ref(myList.value.length);
+console.log(howMany.value)
 
 function add() {
-  // 輸入內容
-  // 按下enter
-  // 顯示內容在第二欄
+  // 不為空
   if (addNewOne.value.trim() !== "") {
-    toDoList.value.push(addNewOne.value); // 注意.value的寫法
-    localStorage.setItem("myList", toDoList.value);
-    
-    addNewOne.value = ""; // 清空输入框 ?
-    howMany.value = toDoList.value.length; //更新任務數
+    toDoList.value.push(addNewOne.value);
+    localStorage.setItem("myList", JSON.stringify(toDoList.value));
+    addNewOne.value = "";
+    howMany.value = toDoList.value.length;
+
+    // 更新 myList 的值
+    myList.value = toDoList.value;
   }
 }
 
-var cat = localStorage.getItem("myList");
-
-// 刪除索引位置資料, 一筆
 function deleteToDoList(index) {
   toDoList.value.splice(index, 1);
-  howMany.value = toDoList.value.length; //更新任務數
+
+  localStorage.setItem("myList", JSON.stringify(toDoList.value));
+  howMany.value = toDoList.value.length;
+
+  // 更新 myList 的值
+  myList.value = toDoList.value;
 }
 
-// 監聽比數變化
 watch(toDoList, (newList) => {
   howMany.value = newList.length;
 });
@@ -55,8 +61,9 @@ watch(toDoList, (newList) => {
     />
   </div>
 
-  <div v-if="toDoList.length !== 0" class="lists">
-    <div class="outPut" v-for="(todo, index) in toDoList" :key="todo">
+  <!-- 使用 v-for 渲染 myList -->
+  <div v-if="myList.length !== 0" class="lists">
+    <div class="outPut" v-for="(todo, index) in myList" :key="index">
       {{ todo }}
       <img
         src="@/assets/btn-delete.svg"

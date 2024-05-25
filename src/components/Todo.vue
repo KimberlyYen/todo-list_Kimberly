@@ -1,6 +1,5 @@
 <script setup>
 import Input from "@/components/Input.vue";
-// import Header from "@/components/Header.vue";
 import Footer from "@/components/Footer.vue";
 </script>
 
@@ -8,7 +7,6 @@ import Footer from "@/components/Footer.vue";
   <div class="container">
     <div class="bg">
       <div class="inner">
-        <!-- <Header class="header" /> -->
         <Input />
         <Footer class="footer" />
       </div>
@@ -21,23 +19,23 @@ import Footer from "@/components/Footer.vue";
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  width: 100%; // Changed from 100vw to 100%
+  height: 100%; // Ensure it covers the full viewport height
+  overflow: hidden; // Added to prevent scrolling
 
   .bg {
     display: flex;
-    width: 300px;
-    height: 450px;
+    align-items: center; // Center vertically
+    justify-content: center; // Center horizontally
+    width: 25rem;
+    height: 36rem;
     background-color: #c6e4e6;
   }
 
   .inner {
     position: relative;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: auto;
-    margin-bottom: auto;
-    width: 255px;
-    height: 380px;
+    width: 23rem;
+    height: 30rem;
     background-color: white;
 
     .header {
@@ -47,8 +45,8 @@ import Footer from "@/components/Footer.vue";
 
     .footer {
       position: absolute;
-      bottom: 0;
-      left: 25px;
+      bottom: -0.7rem;
+      left: 5rem;
     }
   }
 }

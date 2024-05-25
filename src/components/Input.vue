@@ -2,8 +2,8 @@
 import { ref, watch } from "vue";
 
 const addNewOne = ref("");
-const toDoList = ref(["預設"]);
-const howMany = ref(toDoList.value.length)
+const toDoList = ref(["預設","1","2","3","4","5","6"]);
+const howMany = ref(toDoList.value.length);
 
 function add() {
   // 輸入內容
@@ -11,26 +11,25 @@ function add() {
   // 顯示內容在第二欄
   if (addNewOne.value.trim() !== "") {
     toDoList.value.push(addNewOne.value); // 注意.value的寫法
-    // console.log(toDoList.value.length);
-    // toDoList.value.length = howMany
+    localStorage.setItem("myList", toDoList.value);
+    
     addNewOne.value = ""; // 清空输入框 ?
-    howMany.value = toDoList.value.length //更新任務數
+    howMany.value = toDoList.value.length; //更新任務數
   }
-
 }
+
+var cat = localStorage.getItem("myList");
 
 // 刪除索引位置資料, 一筆
 function deleteToDoList(index) {
   toDoList.value.splice(index, 1);
-  howMany.value = toDoList.value.length //更新任務數
+  howMany.value = toDoList.value.length; //更新任務數
 }
 
-// 監聽比數變化 
+// 監聽比數變化
 watch(toDoList, (newList) => {
   howMany.value = newList.length;
 });
-
-
 </script>
 
 <template>
@@ -77,8 +76,8 @@ watch(toDoList, (newList) => {
   margin-bottom: auto;
   margin-left: auto;
   margin-right: auto;
-  width: 204px;
-  height: 30px;
+  width: 15rem;
+  height: 2rem;
   border: #f7c258 1px solid;
   font-size: 14px;
   font-weight: normal;
@@ -86,13 +85,13 @@ watch(toDoList, (newList) => {
 
   .inputBox {
     border: none;
-    width: 204px;
+    width: 12.75rem;
   }
 }
 
 .lists {
-  max-height: 235px;
-  overflow-y:scroll;
+  max-height: 20rem;
+  overflow-y: scroll;
 }
 .outPut {
   border: #acdbde 1px solid;
@@ -109,11 +108,11 @@ watch(toDoList, (newList) => {
   cursor: pointer;
 }
 
-.title {  
+.title {
   margin-bottom: 2rem;
   img {
     position: absolute;
-    margin-left: 1rem;
+    margin-left: 4.5rem;
     margin-top: -2.5rem;
   }
 
@@ -121,7 +120,7 @@ watch(toDoList, (newList) => {
     position: relative;
     color: orangered;
     z-index: 5;
-    left: 11.7rem;
+    left: 15.4rem;
     bottom: 4px;
   }
 }

@@ -1,28 +1,42 @@
 <script setup>
-import { ref } from "vue";
+import { ref, watch } from "vue";
 
 const addNewOne = ref("");
 const toDoList = ref(["預設"]);
-const howMany = toDoList.value.length
+const howMany = ref(toDoList.value.length)
 
 function add() {
   // 輸入內容
   // 按下enter
   // 顯示內容在第二欄
-  toDoList.value.push(addNewOne.value); // 注意.value的寫法
-  console.log(toDoList.value.length);
+  if (addNewOne.value.trim() !== "") {
+    toDoList.value.push(addNewOne.value); // 注意.value的寫法
+    // console.log(toDoList.value.length);
+    // toDoList.value.length = howMany
+    addNewOne.value = ""; // 清空输入框
+    howMany.value = toDoList.value.length //更新任務數
+  }
+
 }
 
 // 刪除索引位置資料, 一筆
 function deleteToDoList(index) {
   toDoList.value.splice(index, 1);
+  howMany.value = toDoList.value.length //更新任務數
 }
+
+// 監聽比數變化 
+watch(toDoList, (newList) => {
+  howMany.value = newList.length;
+});
+
+
 </script>
 
 <template>
   <!-- header -->
   <div class="title">
-    <div class="howMany">{{ howMany }}</div class="">
+    <div class="howMany">{{ howMany }}</div>
     <img src="../assets/title.svg" alt="title" />
   </div>
 

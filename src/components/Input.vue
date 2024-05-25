@@ -13,7 +13,7 @@ function add() {
     toDoList.value.push(addNewOne.value); // 注意.value的寫法
     // console.log(toDoList.value.length);
     // toDoList.value.length = howMany
-    addNewOne.value = ""; // 清空输入框
+    addNewOne.value = ""; // 清空输入框 ?
     howMany.value = toDoList.value.length //更新任務數
   }
 
@@ -56,7 +56,7 @@ watch(toDoList, (newList) => {
     />
   </div>
 
-  <div v-if="toDoList.length !== 0">
+  <div v-if="toDoList.length !== 0" class="lists">
     <div class="outPut" v-for="(todo, index) in toDoList" :key="todo">
       {{ todo }}
       <img
@@ -90,6 +90,10 @@ watch(toDoList, (newList) => {
   }
 }
 
+.lists {
+  max-height: 235px;
+  overflow-y:scroll;
+}
 .outPut {
   border: #acdbde 1px solid;
   margin-top: 1rem;
@@ -117,7 +121,7 @@ watch(toDoList, (newList) => {
     position: relative;
     color: orangered;
     z-index: 5;
-    left: 11.8rem;
+    left: 11.7rem;
     bottom: 4px;
   }
 }

@@ -1,6 +1,6 @@
 <script setup>
 import Input from "@/components/Input.vue";
-import Header from "@/components/Header.vue";
+// import Header from "@/components/Header.vue";
 import Footer from "@/components/Footer.vue";
 </script>
 
@@ -8,7 +8,7 @@ import Footer from "@/components/Footer.vue";
   <div class="container">
     <div class="bg">
       <div class="inner">
-        <Header class="header" />
+        <!-- <Header class="header" /> -->
         <Input />
         <Footer class="footer" />
       </div>

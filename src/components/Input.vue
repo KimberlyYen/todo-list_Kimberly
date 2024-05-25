@@ -2,32 +2,30 @@
 import { ref } from "vue";
 
 const addNewOne = ref("");
-const toDoList = ref(['預設']);
+const toDoList = ref(["預設"]);
+const howMany = toDoList.value.length
 
 function add() {
   // 輸入內容
   // 按下enter
   // 顯示內容在第二欄
   toDoList.value.push(addNewOne.value); // 注意.value的寫法
-
-
-  // 不可輸入空值
-  if (addNewOne.trim() === "") {
-    // 如果为空，显示警告对话框
-    alert("請輸入內容");
-    return false; // 阻止表单提交
-  }
+  console.log(toDoList.value.length);
 }
 
 // 刪除索引位置資料, 一筆
 function deleteToDoList(index) {
-  toDoList.value.splice(index, 1)
+  toDoList.value.splice(index, 1);
 }
-
-
 </script>
 
 <template>
+  <!-- header -->
+  <div class="title">
+    <div class="howMany">{{ howMany }}</div class="">
+    <img src="../assets/title.svg" alt="title" />
+  </div>
+
   <div class="input">
     <input
       type="text"
@@ -40,14 +38,19 @@ function deleteToDoList(index) {
       src="@/assets/btn-add.svg"
       alt="btn-add"
       class="btn-add"
-      disabled="addNewOne === '' ? true:false"
+      @click="add()"
     />
   </div>
 
   <div v-if="toDoList.length !== 0">
     <div class="outPut" v-for="(todo, index) in toDoList" :key="todo">
-        {{ todo }}
-      <img src="@/assets/btn-delete.svg" alt="btn-delete" class="btn-delete" @click="deleteToDoList(index)"/>
+      {{ todo }}
+      <img
+        src="@/assets/btn-delete.svg"
+        alt="btn-delete"
+        class="btn-delete"
+        @click="deleteToDoList(index)"
+      />
     </div>
   </div>
 </template>
@@ -63,7 +66,8 @@ function deleteToDoList(index) {
   width: 204px;
   height: 30px;
   border: #f7c258 1px solid;
-  font-size: 16px;
+  font-size: 14px;
+  font-weight: normal;
   padding-left: 2px;
 
   .inputBox {
@@ -85,5 +89,22 @@ function deleteToDoList(index) {
   margin-bottom: auto;
   margin-right: 3px;
   cursor: pointer;
+}
+
+.title {  
+  margin-bottom: 2rem;
+  img {
+    position: absolute;
+    margin-left: 1rem;
+    margin-top: -2.5rem;
+  }
+
+  .howMany {
+    position: relative;
+    color: orangered;
+    z-index: 5;
+    left: 11.8rem;
+    bottom: 4px;
+  }
 }
 </style>

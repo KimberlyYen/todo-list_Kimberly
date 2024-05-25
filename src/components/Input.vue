@@ -8,7 +8,6 @@ const myList = ref([]);
 // 从 localStorage 中获取 myList 值并解析为数组
 myList.value = JSON.parse(localStorage.getItem("myList")) || [];
 const howMany = ref(myList.value.length);
-console.log(howMany.value)
 
 function add() {
   // 不為空
@@ -33,6 +32,7 @@ function deleteToDoList(index) {
   myList.value = toDoList.value;
 }
 
+//
 watch(toDoList, (newList) => {
   howMany.value = newList.length;
 });

@@ -11,11 +11,11 @@
 甚至沒做完也沒關係，可以到時與我們分享在這過程中的狀況與面臨的問題。
 
 ---
-提交方式請提供
-瀏覽專案 todo-list : https://todo-list-kimberly.vercel.app/
-GitHub Repo位置 : https://github.com/KimberlyYen/todo-list_Kimberly
+提交方式請提供  
+瀏覽專案 todo-list : https://todo-list-kimberly.vercel.app/  
+GitHub Repo位置 : https://github.com/KimberlyYen/todo-list_Kimberly  
 
-Figma瀏覽連結 : 
+Figma瀏覽連結 :   
 - [figma design](https://www.figma.com/design/T04U6RHrjT1FEoBUcpIdau/todo-list_Kimberly.yen?node-id=1-2&t=UktWlOJohNdYdHWg-0)
 - [figma Prototype](https://www.figma.com/proto/T04U6RHrjT1FEoBUcpIdau/todo-list_Kimberly.yen?node-id=5-171&t=UktWlOJohNdYdHWg-0&scaling=min-zoom&page-id=0%3A1&starting-point-node-id=5%3A171)
 

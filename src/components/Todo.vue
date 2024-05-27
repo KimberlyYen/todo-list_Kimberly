@@ -19,8 +19,8 @@ import Footer from "@/components/Footer.vue";
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%; // Changed from 100vw to 100%
-  height: 100%; // Ensure it covers the full viewport height
+  width: 100%; // Changed from 100vw to 100%(防止左右滾動)
+  height: 100%; // Ensure it covers the full viewport height(防止上下滾動)
   overflow: hidden; // Added to prevent scrolling
 
   .bg {
@@ -34,7 +34,7 @@ import Footer from "@/components/Footer.vue";
 
   .inner {
     position: relative;
-    width: 23rem;
+    width: 20rem;
     height: 30rem;
     background-color: white;
 

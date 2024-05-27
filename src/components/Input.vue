@@ -1,47 +1,51 @@
 <script setup>
 import { ref, watch } from "vue";
 
+// 定義一個用於存儲新待辦事項輸入的變數
 const addNewOne = ref("");
+
+// 定義一個用於存儲所有待辦事項的列表
 const toDoList = ref([]);
-const myList = ref([]);
 
-// 从 localStorage 中获取 myList 值并解析为数组
-myList.value = JSON.parse(localStorage.getItem("myList")) || [];
-const howMany = ref(myList.value.length);
-
+// 增加新的待辦事項
 function add() {
-  // 不為空
   if (addNewOne.value.trim() !== "") {
-    toDoList.value.push(addNewOne.value);
-    localStorage.setItem("myList", JSON.stringify(toDoList.value));
+    toDoList.value.push({ text: addNewOne.value, editable: false });
     addNewOne.value = "";
-    howMany.value = toDoList.value.length;
-
-    // 更新 myList 的值
-    myList.value = toDoList.value;
+    console.log(toDoList);
   }
 }
 
+// 刪除指定索引的待辦事項
 function deleteToDoList(index) {
   toDoList.value.splice(index, 1);
-
-  localStorage.setItem("myList", JSON.stringify(toDoList.value));
-  howMany.value = toDoList.value.length;
-
-  // 更新 myList 的值
-  myList.value = toDoList.value;
 }
 
-//
-watch(toDoList, (newList) => {
-  howMany.value = newList.length;
+// 切換指定索引的待辦事項的編輯模式
+function toggleEdit(index) {
+  toDoList.value[index].editable = !toDoList.value[index].editable;
+}
+
+// 保存編輯後的待辦事項
+function saveEdit(index, newText) {
+  if (newText.trim() !== "") {
+    toDoList.value[index].text = newText;
+    toDoList.value[index].editable = false;
+  }
+}
+
+// 監聽 toDoList 的變化並在控制台輸出
+watch(toDoList, (toDoList) => {
+  console.log('toDoList changed:', toDoList);
 });
 </script>
+
+
 
 <template>
   <!-- header -->
   <div class="title">
-    <div class="howMany">{{ howMany }}</div>
+    <div class="howMany">{{ toDoList.length }}</div>
     <img src="../assets/title.svg" alt="title" />
   </div>
 
@@ -61,19 +65,26 @@ watch(toDoList, (newList) => {
     />
   </div>
 
-  <!-- 使用 v-for 渲染 myList -->
-  <div v-if="myList.length !== 0" class="lists">
-    <div class="outPut" v-for="(todo, index) in myList" :key="index">
-      {{ todo }}
-      <img
-        src="@/assets/btn-delete.svg"
-        alt="btn-delete"
-        class="btn-delete"
-        @click="deleteToDoList(index)"
-      />
+  <!-- 使用 v-for 渲染  -->
+  <div v-if="toDoList.length !== 0" class="lists">
+    <div class="outPut" v-for="(todo, index) in toDoList" :key="index">
+      <template v-if="todo.editable">
+        <input v-model="todo.text" @keyup.enter="saveEdit(index, todo.text)" />
+        <div @click="saveEdit(index, todo.text)">
+          <img src="@/assets/btn-editDone.svg" alt="btn-editDone" class="btn-editDone">
+        </div>
+      </template>
+      <template v-else>
+        {{ todo.text }}
+        <div class="btns">
+          <img src="@/assets/btn-edit.svg" alt="btn-edit" class="btn-edit" @click="toggleEdit(index)" />
+          <img src="@/assets/btn-delete.svg" alt="btn-delete" class="btn-delete" @click="deleteToDoList(index)" />
+        </div>
+      </template>
     </div>
   </div>
 </template>
+
 
 <style lang="scss" scoped>
 .input,
@@ -92,7 +103,20 @@ watch(toDoList, (newList) => {
 
   .inputBox {
     border: none;
-    width: 12.75rem;
+    width: 15rem;
+  }
+
+  .btn-add,
+  .btns {
+    margin-left: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    cursor: pointer;
+    margin-right: 3px;
+  }
+
+  .btn-edit {
+    margin-right: 3px;
   }
 }
 
@@ -106,20 +130,11 @@ watch(toDoList, (newList) => {
   background-color: #c6e4e6;
 }
 
-.btn-add,
-.btn-delete {
-  margin-left: auto;
-  margin-top: auto;
-  margin-bottom: auto;
-  margin-right: 3px;
-  cursor: pointer;
-}
-
 .title {
   margin-bottom: 2rem;
   img {
     position: absolute;
-    margin-left: 4.5rem;
+    margin-left: 4rem;
     margin-top: -2.5rem;
   }
 
@@ -127,8 +142,12 @@ watch(toDoList, (newList) => {
     position: relative;
     color: orangered;
     z-index: 5;
-    left: 15.4rem;
+    left: 14.8rem;
     bottom: 4px;
   }
+}
+
+input {
+  width: 18rem;
 }
 </style>

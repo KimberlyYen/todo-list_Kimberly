@@ -12,8 +12,8 @@
 
 ---
 提交方式請提供
-
-GitHub Repo位置 :
+瀏覽專案 todo-list : https://todo-list-kimberly.vercel.app/
+GitHub Repo位置 : https://github.com/KimberlyYen/todo-list_Kimberly
 
 Figma瀏覽連結 : 
 - [figma design](https://www.figma.com/design/T04U6RHrjT1FEoBUcpIdau/todo-list_Kimberly.yen?node-id=1-2&t=UktWlOJohNdYdHWg-0)
